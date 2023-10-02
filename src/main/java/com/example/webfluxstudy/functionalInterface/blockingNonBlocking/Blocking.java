@@ -1,4 +1,4 @@
-package com.example.webfluxstudy.blockingNonBlocking;
+package com.example.webfluxstudy.functionalInterface.blockingNonBlocking;
 
 /**
  * packageName : com.example.webfluxstudy.blockingNonBlocking

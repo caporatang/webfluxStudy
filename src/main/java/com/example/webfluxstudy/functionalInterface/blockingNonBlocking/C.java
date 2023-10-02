@@ -1,4 +1,4 @@
-package com.example.webfluxstudy.blockingNonBlocking;
+package com.example.webfluxstudy.functionalInterface.blockingNonBlocking;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.logging.LogLevel;
