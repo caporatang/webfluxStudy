@@ -28,4 +28,12 @@ public class IoNioBlockNonBlock {
     // 비동기 Non-blocking : D.class
     // 1. caller가 callee를 호출
     // 2. 호출한 시점에 바로 응답이 돌아오고 caller는 caller의 작업을 하고, callee는 callee의 작업을 한다.
+
+
+
+    //                      동기                              비동기
+    // Blocking         caller는 아무것도 할 수 없는 상태      caller는 아무 것도 할 수 없는 상태.
+    //                  결과를 얻은 후 직접 처리              결과는 callee가 처리한다.
+    // Non-blocking     caller는 자기 할 일을 할 수 있다.     caller는 자기 할 일을 할 수 있다.
+    //                  결과를 얻은 후 직접 처리              결과는 callee가 처리한다.
 }
