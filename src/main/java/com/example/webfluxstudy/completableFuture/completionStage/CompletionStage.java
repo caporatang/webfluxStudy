@@ -25,5 +25,4 @@ public class CompletionStage {
     // ForkJoinPool - fork & join
     // Task를 fork를 통해서 subtask로 나누고, Thread pool에서 steal work 알고리즘을 이용해서 균등하게 처리, -> join을 통해서 결과를 생성한다.
     // CompletionStage, CompletableFuture는 내부적으로 ForkJoinPool을 사용한다.
-    
 }
