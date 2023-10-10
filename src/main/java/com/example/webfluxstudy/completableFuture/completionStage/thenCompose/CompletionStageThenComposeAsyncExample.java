@@ -20,7 +20,7 @@ import java.util.concurrent.CompletionStage;
 public class CompletionStageThenComposeAsyncExample {
     // thenComposeAsync
     // Future를 가지고 연계를 해야 한다면 thenComposeAsync를 사용하자
-    
+
     public static void main(String[] args) throws InterruptedException {
         log.info("start main !");
 
