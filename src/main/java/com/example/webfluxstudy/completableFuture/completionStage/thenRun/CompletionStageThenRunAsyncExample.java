@@ -19,7 +19,7 @@ import java.util.concurrent.CompletionStage;
 @Slf4j
 public class CompletionStageThenRunAsyncExample {
     // 값을 반환 하지도, 값을 다음 task에게 넘겨 주지도 않는다.
-    
+
     public static void main(String[] args) throws InterruptedException {
         log.info("start main");
         CompletionStage<Integer> stage = Helper.completionStage();
