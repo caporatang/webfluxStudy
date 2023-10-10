@@ -1,9 +1,8 @@
-package com.example.webfluxstudy.completableFuture.completionStage;
+package com.example.webfluxstudy.completableFuture.completionStage.thenAsyncSufix;
 
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.CompletionStage;
-import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 /**
