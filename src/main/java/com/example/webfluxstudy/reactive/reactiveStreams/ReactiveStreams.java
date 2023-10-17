@@ -1,4 +1,4 @@
-package com.example.webfluxstudy.reactiveStreams;
+package com.example.webfluxstudy.reactive.reactiveStreams;
 
 /**
  * packageName : com.example.webfluxstudy.reactiveStreams
