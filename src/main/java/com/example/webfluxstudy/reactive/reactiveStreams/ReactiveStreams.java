@@ -61,5 +61,15 @@ public class ReactiveStreams {
     // 두 번째 형태 : 작업량이 변화하더라도 응답성을 유지
     // 방법 : 비동기 non-blocking 기반의 메시지 큐를 사용해서 통신한다.
 
+    // Reactive stream 구조
+    // 데이터 혹은 이벤트를 제공하는 Publisher
+    // 데이터 혹은 이벤트를 제공받는 Subscriber
+    // 데이터 흐름을 조절하는 Subscription
+
+    // publisher는 subscriber에게 subscription을 전달한다.
+    // Subscription 안에는 요청의 갯수를 받을수 있는지에 대한 request 메서드와 요청을 받지 않겠다는 cancel 메서드로 구성되어 있다.
+    // publisher는 subscriber에게 data, complete, error 등 이벤트를 전달하고, Subscriber는 그 이벤트에 따라 on 으로 시작하는 메서드들을 통해서 이벤트들을 처리한다.
+
+
 
 }
