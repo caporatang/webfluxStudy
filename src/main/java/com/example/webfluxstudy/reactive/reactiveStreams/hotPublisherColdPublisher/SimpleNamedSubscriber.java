@@ -1,4 +1,4 @@
-package com.example.webfluxstudy.reactive.reactiveStreams.hotPublisherColdPublisher.simpleColdPublisher;
+package com.example.webfluxstudy.reactive.reactiveStreams.hotPublisherColdPublisher;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,7 +16,7 @@ import java.util.concurrent.Flow;
  * 2023/10/18        taeil                   최초생성
  */
 @Slf4j
-public class SimpleNamedSubscriber<T> implements Flow.Subscriber {
+public class SimpleNamedSubscriber<T> implements Flow.Subscriber<T> {
     private Flow.Subscription subscription;
     private final String name;
 

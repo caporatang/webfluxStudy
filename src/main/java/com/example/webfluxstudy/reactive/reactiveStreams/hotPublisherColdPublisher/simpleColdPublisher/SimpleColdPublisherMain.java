@@ -1,5 +1,6 @@
 package com.example.webfluxstudy.reactive.reactiveStreams.hotPublisherColdPublisher.simpleColdPublisher;
 
+import com.example.webfluxstudy.reactive.reactiveStreams.hotPublisherColdPublisher.SimpleNamedSubscriber;
 import lombok.SneakyThrows;
 
 /**
