@@ -38,6 +38,8 @@ public class ContinuousRequestSubscriber<T> implements Subscriber<T> {
 
         Thread.sleep(1000);
 
+        // 본인이 처리 가능한 만큼만 요청
+        // -> subscriber에서 감당하기 힘든 양이 올 일이 없고 publisher 에서 많은 데이터를 가지고 있어도 publisher의 데이터 양과 상관없이 처리한다.
         subscription.request(1);
 
         log.info("request:{}", t);
