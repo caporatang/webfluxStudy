@@ -58,6 +58,18 @@ public class ChannelPositionExample {
 
             byteBuffer.clear();
             logPosition("clear", byteBuffer);
+
+            // 다이렉트 바이트 버퍼
+            var directByteBuffer = ByteBuffer.allocateDirect(1024);
+            assert directByteBuffer.isDirect(); // -> 다이렉트 버퍼 true
+
+            // 힙 바이트 버퍼
+            var heapByteBuffer = ByteBuffer.allocate(1024);
+            assert !heapByteBuffer.isDirect(); // -> false
+
+            // wrap 으로 바이트를 바이트 버퍼로 만들수있음 -> 만든 버퍼는 힙 바이트 버퍼임.
+            var byteBufferByWrap = ByteBuffer.wrap("hello".getBytes());
+            assert !byteBufferByWrap.isDirect();
         }
     }
 
