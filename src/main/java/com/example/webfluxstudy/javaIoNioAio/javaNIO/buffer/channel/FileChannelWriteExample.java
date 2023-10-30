@@ -1,4 +1,4 @@
-package com.example.webfluxstudy.javaIoNioAio.javaNIO.buffer.directByteBuffer;
+package com.example.webfluxstudy.javaIoNioAio.javaNIO.buffer.channel;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +24,7 @@ public class FileChannelWriteExample {
 
     @SneakyThrows
     public static void main(String[] args) {
-        var file = new File("/Users/taeil/study/webfluxStudy/src/main/java/com/example/webfluxstudy/javaIoNioAio/javaNIO/buffer/directByteBuffer/hello.txt");
+        var file = new File("/Users/taeil/study/webfluxStudy/src/main/java/com/example/webfluxstudy/javaIoNioAio/javaNIO/buffer/channel/hello.txt");
 
         // write 는 별도로 인자에 mode를 넘겨주어야 함
         var mode = StandardOpenOption.WRITE;
