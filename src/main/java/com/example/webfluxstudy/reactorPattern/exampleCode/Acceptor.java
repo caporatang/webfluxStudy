@@ -21,8 +21,7 @@ import java.nio.channels.SocketChannel;
  */
 @Slf4j
 @RequiredArgsConstructor
-public class Acceptor implements EventHandler{
-    //
+public class Acceptor implements EventHandler {
     private final Selector selector;
     private final ServerSocketChannel serverSocketChannel;
 

@@ -24,7 +24,7 @@ public class JavaIOMultiClient {
         List<CompletableFuture<Void>> futures = new ArrayList<>();
         long start = System.currentTimeMillis();
 
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 400; i++) {
             var future = CompletableFuture.runAsync(() -> {
                 try (Socket socket = new Socket()) {
                     socket.connect(new InetSocketAddress("localhost", 8080));

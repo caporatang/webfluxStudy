@@ -27,16 +27,13 @@ import java.util.concurrent.Executors;
 @Slf4j
 public class TcpEventHandler implements EventHandler{
     private ExecutorService executorService = Executors.newFixedThreadPool(50);
-    private final Selector selector;
     private final SocketChannel clientSocket;
 
     @SneakyThrows
     public TcpEventHandler (Selector selector , SocketChannel clientSocket) {
-        this.selector = selector;
         this.clientSocket = clientSocket;
         this.clientSocket.configureBlocking(false);
-        // Read가 완료된 시점에 this를 넣었기 떄문에 TCPEvent 를 실행을 할것임
-        this.clientSocket.register(this.selector, SelectionKey.OP_READ).attach(this);
+        this.clientSocket.register(selector, SelectionKey.OP_READ).attach(this);
     }
 
     @Override
@@ -44,7 +41,6 @@ public class TcpEventHandler implements EventHandler{
         log.info("start handle");
         // handle 은 요청이 완료된 시점이기 떄문에, 소켓 채널로부터 값을 무조건 읽어와도 된다.
         String requestBody = handleRequest(this.clientSocket);
-        log.info("requestBody : {}", requestBody);
         sendResponse(this.clientSocket, requestBody);
     }
 
