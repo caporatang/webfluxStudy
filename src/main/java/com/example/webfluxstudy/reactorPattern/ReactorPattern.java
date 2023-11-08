@@ -44,7 +44,7 @@ public class ReactorPattern {
     // accept, read, write 이벤트들을 한 곳에 등록하여 관찰하고, 준비 완료된 이벤트들을 request handler에게 전달한다.
     // -> selector를 이용한 Java nio 처리와 비슷하다.
 
-    // Reactor pattern 구성 요성
+    // Reactor pattern 구성 요소
     // Reactor : 별도의 쓰레드에서 실행. 여러 요청의 이벤트를 등록하고 감시하며, 이벤트가 준비되면 dispatch 한다.
     // Handler : Reactor로부터 이벤틀르 받아서 처리한다.
 
