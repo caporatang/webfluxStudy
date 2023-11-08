@@ -46,5 +46,5 @@ public class Epoll {
     // epoll_create : epoll인스턴스를 생성한다.
     // epoll_ctl : epoll 인스턴스에 fd와 관심있는 작업을 등록/삭제/수정한다.
     // epoll_wait : fd와 관련된 이벤트를 감시한다.
-    
+
 }
