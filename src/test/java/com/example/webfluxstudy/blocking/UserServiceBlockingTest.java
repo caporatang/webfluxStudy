@@ -1,13 +1,11 @@
 package com.example.webfluxstudy.blocking;
 
-import com.example.webfluxstudy.completableFutureExample.blocking.UserBlockingService;
-import com.example.webfluxstudy.completableFutureExample.blocking.repository.ArticleRepository;
-import com.example.webfluxstudy.completableFutureExample.blocking.repository.FollowRepository;
-import com.example.webfluxstudy.completableFutureExample.blocking.repository.ImageRepository;
-import com.example.webfluxstudy.completableFutureExample.blocking.repository.UserRepository;
-import com.example.webfluxstudy.completableFutureExample.common.Article;
-import com.example.webfluxstudy.completableFutureExample.common.User;
-import org.junit.jupiter.api.Assertions;
+import com.example.webfluxstudy.basicReactiveProgramming.completableFutureExample.blocking.UserBlockingService;
+import com.example.webfluxstudy.basicReactiveProgramming.completableFutureExample.blocking.repository.ArticleRepository;
+import com.example.webfluxstudy.basicReactiveProgramming.completableFutureExample.blocking.repository.FollowRepository;
+import com.example.webfluxstudy.basicReactiveProgramming.completableFutureExample.blocking.repository.ImageRepository;
+import com.example.webfluxstudy.basicReactiveProgramming.completableFutureExample.blocking.repository.UserRepository;
+import com.example.webfluxstudy.basicReactiveProgramming.completableFutureExample.common.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

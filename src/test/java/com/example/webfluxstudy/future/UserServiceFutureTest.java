@@ -1,16 +1,11 @@
 package com.example.webfluxstudy.future;
 
-import com.example.webfluxstudy.completableFutureExample.blocking.UserBlockingService;
-import com.example.webfluxstudy.completableFutureExample.blocking.repository.ArticleRepository;
-import com.example.webfluxstudy.completableFutureExample.blocking.repository.FollowRepository;
-import com.example.webfluxstudy.completableFutureExample.blocking.repository.ImageRepository;
-import com.example.webfluxstudy.completableFutureExample.blocking.repository.UserRepository;
-import com.example.webfluxstudy.completableFutureExample.common.User;
-import com.example.webfluxstudy.completableFutureExample.future.UserFutureService;
-import com.example.webfluxstudy.completableFutureExample.future.repository.ArticleFutureRepository;
-import com.example.webfluxstudy.completableFutureExample.future.repository.FollowFutureRepository;
-import com.example.webfluxstudy.completableFutureExample.future.repository.ImageFutureRepository;
-import com.example.webfluxstudy.completableFutureExample.future.repository.UserFutureRepository;
+import com.example.webfluxstudy.basicReactiveProgramming.completableFutureExample.common.User;
+import com.example.webfluxstudy.basicReactiveProgramming.completableFutureExample.future.UserFutureService;
+import com.example.webfluxstudy.basicReactiveProgramming.completableFutureExample.future.repository.ArticleFutureRepository;
+import com.example.webfluxstudy.basicReactiveProgramming.completableFutureExample.future.repository.FollowFutureRepository;
+import com.example.webfluxstudy.basicReactiveProgramming.completableFutureExample.future.repository.ImageFutureRepository;
+import com.example.webfluxstudy.basicReactiveProgramming.completableFutureExample.future.repository.UserFutureRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
