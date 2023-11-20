@@ -89,7 +89,7 @@ public class NettyEchoServer {
         };
     }
 
-    private static ChannelInboundHandler echoHandler() {
+    public static ChannelInboundHandler echoHandler() {
         // inbound된 message를 읽어서 출력
         // copy를 통해서 새로운 ByteBuf 생성
         // ctx.writeAndFlush를 통해서 다음 handler에게 메세지를 전달
