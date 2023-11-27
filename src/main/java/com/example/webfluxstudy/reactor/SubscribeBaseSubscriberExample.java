@@ -40,7 +40,7 @@ public class SubscribeBaseSubscriberExample {
         };
         Flux.fromIterable(List.of(1, 2, 3, 4, 5))
                 .subscribe(subscriber);
-        
+
         // 외부에서 호출!
         // subscriber.request(1);
         // subscriber.cancel();
