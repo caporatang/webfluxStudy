@@ -109,6 +109,6 @@ public class DocsSubscribe {
                         log.info("complete");
                     }
                 });
-        
+
     }
 }
