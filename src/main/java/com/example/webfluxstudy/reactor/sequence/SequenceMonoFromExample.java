@@ -18,7 +18,7 @@ import java.util.concurrent.CompletableFuture;
  */
 @Slf4j
 public class SequenceMonoFromExample {
-    // mono from
+    // mono from : 함수형 인터페이스를 실행하고 future를 실행하고 그 결과를 넘기는 방식
 
     public static void main(String[] args) {
 
