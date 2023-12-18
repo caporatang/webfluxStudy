@@ -25,7 +25,7 @@ public class SequenceHandleExample {
         Flux.fromStream(IntStream.range(0, 10).boxed())
                 .handle((value, sink) ->{
                     if (value % 2 == 0) {
-                        // 짝수일때만 값을 넘겨주자
+                        // 짝수일때만 값을 다음 파이프라인으로 넘겨주자
                         sink.next(value);
                     }
                 }).subscribe(value -> {
