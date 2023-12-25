@@ -23,7 +23,7 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
 
     // https://mvnrepository.com/artifact/io.projectreactor/reactor-core
-    implementation group: 'io.projectreactor', name: 'reactor-core', version: '3.4.2' // project Reactor
+    implementation 'io.projectreactor:reactor-core:3.5.11'
     implementation "io.reactivex.rxjava3:rxjava:3.0.9" // rxJava
 
     // https://mvnrepository.com/artifact/io.netty/netty-all
