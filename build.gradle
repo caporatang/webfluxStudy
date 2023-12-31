@@ -29,7 +29,11 @@ dependencies {
     // https://mvnrepository.com/artifact/io.netty/netty-all
     implementation group: 'io.netty', name: 'netty-all', version: '4.1.100.Final'
 
-
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("org.springframework.boot:spring-boot-starter-webflux")
+    // reactor tool
+    implementation("io.projectreactor:reactor-tools")
+    implementation("org.springframework.boot:spring-boot-starter-mustache")
 
 }
 

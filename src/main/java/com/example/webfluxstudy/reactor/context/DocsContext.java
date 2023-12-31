@@ -16,5 +16,5 @@ public class DocsContext {
     // 특정 key의 value에 접근하고 key의 value를 수정할 수 있는 수단을 제공한다
     // map과 유사한 형태를 가지고 있다.
     // 읽기 전용인 ContextView, 쓰기까지 할 수 있는 Context로 구분된다.
-    
+
 }
