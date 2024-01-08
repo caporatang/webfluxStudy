@@ -21,6 +21,11 @@ public class DocsHttpHandler {
 
     // ServerHttpInputMessage , HttpRequest , ReactiveHttpOutputMessage 는 HttpMessage를 상속하고 있음 !
 
-    
 
+
+    // HttpHandler 의 한계
+    // request header나 body를 변경하는 작업을 HttpHandler에 직접 구현해야 한다.
+    // HttpHandler 내에서 모든 error를 직접 catch해서 관리해야 한다.
+    // request의 read와 response의 write 모두 HttpHandler에서 구현해야 한다.
+    // --> 이 문제점들을 개선한 webHandler가 따로 존재함.
 }
