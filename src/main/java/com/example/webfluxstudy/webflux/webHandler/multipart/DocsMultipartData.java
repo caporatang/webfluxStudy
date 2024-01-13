@@ -17,6 +17,7 @@ public class DocsMultipartData {
     // -> content는 Flux<DataBuffer> 의 형태를 갖고있다.
 
     // FormFieldPart는 plain text 필드에 해당. -> value()를 통해서 값에 접근 가능
+
     // FilePart는 file 필드에 해당한다.
     // filename() 으로 파일명에 접근하고, transferTo로 로컬에 File 필드의 내용을 전달한다.
 }
