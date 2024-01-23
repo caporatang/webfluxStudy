@@ -1,4 +1,4 @@
-package com.example.webfluxstudy.webflux.webfluxSpring.functionalEndpoints;
+package com.example.webfluxstudy.webflux.webfluxSpring.functionalEndpoints.serverResponse;
 
 /**
  * packageName : com.example.webfluxstudy.webflux.webfluxSpring.functionalEndpoints
