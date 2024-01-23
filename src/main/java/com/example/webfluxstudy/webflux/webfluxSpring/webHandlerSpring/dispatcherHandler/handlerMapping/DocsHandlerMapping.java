@@ -1,4 +1,4 @@
-package com.example.webfluxstudy.webflux.webfluxSpring.dispatcherHandler.handlerMapping;
+package com.example.webfluxstudy.webflux.webfluxSpring.webHandlerSpring.dispatcherHandler.handlerMapping;
 
 /**
  * packageName : com.example.webfluxstudy.webflux.webfluxSpring.dispatcherHandler.handlerMapping

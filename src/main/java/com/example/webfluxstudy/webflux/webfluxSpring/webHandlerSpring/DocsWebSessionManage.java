@@ -1,4 +1,4 @@
-package com.example.webfluxstudy.webflux.webfluxSpring;
+package com.example.webfluxstudy.webflux.webfluxSpring.webHandlerSpring;
 
 /**
  * packageName : com.example.webfluxstudy.webflux.webfluxSpring
