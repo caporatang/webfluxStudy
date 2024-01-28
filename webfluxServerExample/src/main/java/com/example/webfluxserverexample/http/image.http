@@ -1,0 +1,20 @@
+GET http://localhost:8081/api/images/100000
+
+> {%
+     client.test("Status shuld be 404", function (){
+         client.assert(response.status === 404)
+     });
+%}
+
+###
+GET http://localhost:8081/api/images/1
+
+> {%
+     client.test("Status shuld be 200", function (){
+         client.assert(response.status === 200);
+
+         client.assert(response.body === '1');
+         client.assert(response.body.name === 'profileImage');
+         client.assert(response.body.url === 'https://dailyone.com/images/1');
+     });
+%}
