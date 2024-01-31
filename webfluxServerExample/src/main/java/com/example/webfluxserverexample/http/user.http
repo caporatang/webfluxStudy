@@ -8,6 +8,7 @@ GET http://localhost:8080/api/users/100000
 
 ###
 GET http://localhost:8080/api/users/1234
+X-I-AM: abcd
 
 > {%
      client.test("Status shuld be 200", function (){
@@ -18,3 +19,4 @@ GET http://localhost:8080/api/users/1234
          client.assert(response.body.age === 29);
      });
 %}
+

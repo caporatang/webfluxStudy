@@ -1,5 +1,7 @@
 package com.example.webfluxserverexample.common;
 
+import com.example.webfluxserverexample.controller.dto.ProfileImageResponse;
+import com.example.webfluxserverexample.service.ImageResponse;
 import lombok.Data;
 
 import java.util.List;

@@ -1,6 +1,10 @@
 package com.example.webfluxserverexample.controller.dto;
 
+import com.example.webfluxserverexample.common.Image;
+import com.example.webfluxserverexample.service.ImageResponse;
 import lombok.Data;
+
+import java.util.Optional;
 
 /**
  * packageName : com.example.webfluxserverexample.controller.dto
@@ -19,4 +23,5 @@ public class UserResponse {
     private final String name;
     private final int age;
     private final Long followCount;
+    private final Optional<ProfileImageResponse> image;
 }

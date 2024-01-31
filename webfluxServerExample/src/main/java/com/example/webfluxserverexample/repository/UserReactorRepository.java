@@ -23,7 +23,7 @@ public class UserReactorRepository {
     private final Map<String, UserEntity> userMap;
 
     public UserReactorRepository() {
-        var user = new UserEntity("1234", "taeil", 29, "image#1000");
+        var user = new UserEntity("1234", "taeil", 29, "1");
 
         userMap = Map.of("1234", user);
     }
