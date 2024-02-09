@@ -12,28 +12,27 @@ package com.example.webfluxstudy.serverSentEvent;
  * 2/9/24        taeil                   최초생성
  */
 public class DocsServerSentEvent {
-    // 클라이언트에서 일반적으로 클라이언트에서 먼저 요청을 보내지 않아도 서버에서 클라이언트로 이벤트를 전달하는 기법
+    // ServerSendEvent 란?
+    // Chunked Transfer-Encoding 기반
+    // chunk 단위로 여러 줄로 구성된 문자열을 전달
+    // new line으로 이벤트를 구분한다.
+    // 문자열은 일반적으로 <field>:<value> 형태로 구성한다.
 
-    // Polling : 주기적으로 클라이언트가 서버에 요청을 보내고 서버는 데이터나 이벤트가 없다면 텅 빈 값을, 클라이언트는 일정 주기를 기다린 후 다시 서버에 요청
-    // Pooling 의 한계
-    // 1. 클라이언트에서 대기하는 시간이 길다면, 실시간성이 떨어진다.
-    // 2. 반대로 클라이언트에서 대기하는 시간이 짧다면, 서버에 부담이 된다
-    // 3. 동기 non-blocking 방식과 유사하다. (BusyWait)
+    // Server Send Event filed
+    // id : 이벤트의 id를 가리킨다.
+    //  1. client에서는 이벤트의 id를 저장하고 Last-Event-ID 헤더에 첨부하여 가장 마지막으로 받은 이벤트가 무엇인지 전달한다.
+    //  2. 이를 이용해서 서버는 lastEventId 보다 큰 이벤트만 전달 가능하다 .
+    // event : 이벤트의 타입을 표현한다.
+    // data : 이벤트의 data를 표현한다.
+    //  1. 여러 줄의 data 필드를 이용하면 multi line data를 표현 가능하다.
+    // retry : reconnection 을 위한 대기 시간을 클라이언트에게 전달한다.
+    // comment : field 부분이 빈 케이스, 기능을 한다기보다는 정보를 넘기기 위한 역할이다.
 
-    // polling의 한계를 극복하기 위해 나온 기법이 Long polling
-    // 1. 클라이언트가 먼저 요청을 보내는 부분은 동일하다.
-    // 2. 서버는 전송할 이벤트 혹은 데이터가 있을때까지 대기한다.
-    // 3. 이벤트 혹은 데이터가 준비되거나 timeout이 발생하면 클라이언트에 응답을 전달한다.
-    // 4. 클라이언트는 응답을 받은 후 대기를 하지 않고 바로 long poll 요청을 전달한다.
-    // 5. 쉽게 구현할 수 있고, 이벤트 및 데이터가 생길때마다 응답을 돌려주기 때문에 실시간성이 높다.
+    // Return value
+    // 1. Servlet stack의 return value와 거의 비슷하다. 하지만 ModelAndView 대신 Rendering을 지원한다.
+    // 2. void를 반환할때 필요로 하는 argument의 차이가 있다.
+    // 3. Servlet stack 에서는 HttpMessageConverter를 사용하지만 reactive stack에서는 HttpMessageWriter를 사용한다.
 
-    // Long polling 기법의 한계
-    // 1. long poll 요청과 응답 모두 하나의 독립적인 request, response이기 때문에 header를 모두 포함한다.
-    // 2. 클라이언트와 서버 모두 TCP/IP 연결을 열고있는 상태로 대기. 따라서 한정된 connection pool과 관련된 리소스를 신경써야 한다.
-    // 3. 클라이언트에게 제공해야할 이벤트가 queue에 쌓이면 각각의 이벤트를 단건으로 여러 개의 long poll 요청에 나눠서 전달한다.
-    // 4. 브라우저 , gateway 등의 timeout을 고려하여 서버의 long poll 대기 시간을 정해야 한다.
+    
 
-    // polling은 요청을 너무 자주 보내고, 그로 인해 실시간성과 부하가 커진다. .Long polling은 자주 요청하지 않고 실제로 이벤트가 있을때만 보내지만 하나 하나마다 커다란 Http 이다.
-
-    // 이 단점을 보완해서 사용 가능한게 Http Streaming 이다.
 }
