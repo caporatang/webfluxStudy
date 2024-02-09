@@ -33,6 +33,10 @@ public class DocsServerSentEvent {
     // 2. void를 반환할때 필요로 하는 argument의 차이가 있다.
     // 3. Servlet stack 에서는 HttpMessageConverter를 사용하지만 reactive stack에서는 HttpMessageWriter를 사용한다.
 
-    
+    // Server Send Event Controller 의 처리 과정
+    // 1. ServerWebExchange로 요청이 들어온다.
+    // 2. RequestMapping HandlerMapping 에서 handlerMethod를 RequestMapping HandlerAdapter 에 전달
+    // 3. RequestMapping HandlerAdapter 에서는 요청을 처리하고 HandlerResult를 만드는데 Flux<ServerSentEvent> 를 포함하고 있는 result임
+    // 4. ResponseBody ResultHandler가 요청을 처리한다. 그리고 만들어진 Flux<ServerSentEvent>를 가지고 응답을 내보내게 된다.
 
 }
