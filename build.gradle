@@ -20,8 +20,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
+    compileOnly 'org.projectlombok:lombok:1.18.20'
+    annotationProcessor 'org.projectlombok:lombok:1.18.20'
 
     // https://mvnrepository.com/artifact/io.projectreactor/reactor-core
     implementation 'io.projectreactor:reactor-core:3.5.11'
@@ -37,7 +37,7 @@ dependencies {
     // template engine
     implementation("org.springframework.boot:spring-boot-starter-mustache")
     // security
-    implementation 'org.springframework.boot:spring-boot-starter-security'
+    // implementation 'org.springframework.boot:spring-boot-starter-security'
 
 }
 

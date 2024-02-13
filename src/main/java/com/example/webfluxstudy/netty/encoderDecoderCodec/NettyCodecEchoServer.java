@@ -37,7 +37,7 @@ public class NettyCodecEchoServer {
         return new ChannelInboundHandlerAdapter(){
             @Override
             public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-                log.info("Acceptor.channelRead");
+                //log.info("Acceptor.channelRead");
                 if (msg instanceof SocketChannel) {
                     SocketChannel socketChannel = (SocketChannel) msg;
                     socketChannel.pipeline().addLast(
