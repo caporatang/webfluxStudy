@@ -1,4 +1,4 @@
-package com.example.webfluxstudy.serverSentEvent.service;
+package com.example.webfluxstudy.webflux.serverSentEvent.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

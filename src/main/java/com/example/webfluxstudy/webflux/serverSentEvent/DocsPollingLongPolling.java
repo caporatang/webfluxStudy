@@ -1,4 +1,4 @@
-package com.example.webfluxstudy.serverSentEvent;
+package com.example.webfluxstudy.webflux.serverSentEvent;
 
 /**
  * packageName : com.example.webfluxstudy.serverSentEvent

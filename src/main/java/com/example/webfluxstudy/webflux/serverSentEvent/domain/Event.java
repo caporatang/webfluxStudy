@@ -1,4 +1,4 @@
-package com.example.webfluxstudy.serverSentEvent.domain;
+package com.example.webfluxstudy.webflux.serverSentEvent.domain;
 
 import lombok.Getter;
 import lombok.Setter;

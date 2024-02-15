@@ -1,4 +1,4 @@
-package com.example.webfluxstudy.serverSentEvent.controller;
+package com.example.webfluxstudy.webflux.serverSentEvent.controller;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.codec.ServerSentEvent;

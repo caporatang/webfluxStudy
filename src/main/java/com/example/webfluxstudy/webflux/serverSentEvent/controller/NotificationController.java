@@ -1,7 +1,7 @@
-package com.example.webfluxstudy.serverSentEvent.controller;
+package com.example.webfluxstudy.webflux.serverSentEvent.controller;
 
-import com.example.webfluxstudy.serverSentEvent.domain.Event;
-import com.example.webfluxstudy.serverSentEvent.service.NotificationService;
+import com.example.webfluxstudy.webflux.serverSentEvent.domain.Event;
+import com.example.webfluxstudy.webflux.serverSentEvent.service.NotificationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -9,7 +9,6 @@ import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import reactor.core.publisher.Sinks;
 
 import java.util.concurrent.atomic.AtomicInteger;
 

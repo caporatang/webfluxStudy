@@ -1,4 +1,4 @@
-package com.example.webfluxstudy.serverSentEvent.httpStreaming;
+package com.example.webfluxstudy.webflux.serverSentEvent.httpStreaming;
 
 /**
  * packageName : com.example.webfluxstudy.serverSentEvent.httpStreaming
