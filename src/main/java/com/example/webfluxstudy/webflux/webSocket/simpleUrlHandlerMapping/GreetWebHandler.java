@@ -1,4 +1,4 @@
-package com.example.webfluxstudy.webflux.webSocket;
+package com.example.webfluxstudy.webflux.webSocket.simpleUrlHandlerMapping;
 
 import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebHandler;

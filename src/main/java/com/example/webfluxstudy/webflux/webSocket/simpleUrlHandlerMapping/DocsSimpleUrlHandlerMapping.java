@@ -1,4 +1,4 @@
-package com.example.webfluxstudy.webflux.webSocket;
+package com.example.webfluxstudy.webflux.webSocket.simpleUrlHandlerMapping;
 
 /**
  * packageName : com.example.webfluxstudy.webflux.webSocket
