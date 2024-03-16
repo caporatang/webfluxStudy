@@ -1,4 +1,4 @@
-package com.example.springdatareactive.r2dbc;
+package com.example.springdatareactive.r2dbc.mysql;
 
 import lombok.*;
 

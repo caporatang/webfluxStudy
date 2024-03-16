@@ -1,4 +1,4 @@
-package com.example.springdatareactive.r2dbc;
+package com.example.springdatareactive.r2dbc.mysql;
 
 import dev.miku.r2dbc.mysql.MySqlConnectionConfiguration;
 import dev.miku.r2dbc.mysql.MySqlConnectionFactory;
