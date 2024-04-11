@@ -29,7 +29,7 @@ dependencies {
     implementation "com.github.jasync-sql:jasync-r2dbc-mysql:2.0.8"
 
     implementation("org.springframework.boot:spring-boot-starter-webflux")
-
+    implementation 'io.netty:netty-resolver-dns-native-macos:4.1.70.Final'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
