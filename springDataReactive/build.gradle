@@ -24,15 +24,22 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'dev.miku:r2dbc-mysql:0.8.2.RELEASE'
-
     implementation "org.springframework.boot:spring-boot-starter-data-r2dbc"
-    implementation "com.github.jasync-sql:jasync-r2dbc-mysql:2.0.8"
+
+    implementation("io.asyncer:r2dbc-mysql:0.9.2")
 
     implementation("org.springframework.boot:spring-boot-starter-webflux")
-    implementation 'io.netty:netty-resolver-dns-native-macos:4.1.70.Final'
+
+    // https://mvnrepository.com/artifact/org.springframework.security/spring-security-core
+    implementation 'org.springframework.security:spring-security-core:6.0.2'
+
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    if (System.getProperty("os.arch") == "aarch64" && System.getProperty("os.name") == "Mac OS X") {
+        runtimeOnly("io.netty:netty-resolver-dns-native-macos:_:osx-aarch_64")
+    }
 }
 
 tasks.named('bootBuildImage') {
