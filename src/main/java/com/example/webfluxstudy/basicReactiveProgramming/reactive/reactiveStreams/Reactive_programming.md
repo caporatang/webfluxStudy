@@ -7,11 +7,11 @@
 ### 이러한 일반적인 프로그래밍에 Reactive manifesto를 대입해서 생각해보면?
 
 - **동기 stream**
-  callee는 caller에게 응답이 아닌 stream을 제공하여, callee는 각각의 값을 stream을 통해서 값을 전달한다. 그리고 caller는 해당 stream을 collect 하여 이를 처리한다.
+  callee는 caller에게 응답이 아닌 stream을 제공하여, callee는 각각의 값을 stream을 통해서 값을 전달한다. 그리고 caller는 해당 stream을 collect 하여 이를 처리한다.  
   ![동기_stream](img/동기_stream.png)    
 
 - **비동기 future**
-  callee는 caller에게 응답이 아닌 future를 제공한다. 위와 다르게 stream이 아니라 future를 통해서 전달하고, caller는 해당 future를 chaning 하여 이를 처리한다.
+  callee는 caller에게 응답이 아닌 future를 제공한다. 위와 다르게 stream이 아니라 future를 통해서 전달하고, caller는 해당 future를 chaning 하여 이를 처리한다.  
   ![비동기_future](img/비동기_future.png)  
 
 동기 stream은 Reactive manifesto의 2가지를 만족하지 못한다.
@@ -29,8 +29,8 @@
 
 ## Reactive stream
 **Reactive stream** 은 callee는 caller에게 응답이 아닌 publisher를 제공한다. callee는 각각의 값을 publisher를 통해서 값을 전달하고 caller는 해당 publisher를 subscribe하거나 다른 caller에게 전달한다.
-caller는 subscriber를 등록하여 back-pressure를 조절하여 처리 가능한만큼 전달 받는다.(배압 조절)
-![Reactive_stream](img/Reactive_stream.png)
+caller는 subscriber를 등록하여 back-pressure를 조절하여 처리 가능한만큼 전달 받는다.(배압 조절)  
+![Reactive_stream](img/Reactive_stream.png)  
 
 Reactive stream은 manifesto를 만족한다.
 1. 서로 비동기적으로 메시지를 주고 받고 독립적인 실행을 보장한다.
