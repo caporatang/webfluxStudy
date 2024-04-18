@@ -60,7 +60,7 @@ isCancelled: task가 명시적으로 취소된 경우, true를 반환한다.
 
 ### get()
 - 결과를 구할 때까지 thread가 계속 block 상태로 대기한다.
-```java
+````java
 import com.example.webfluxstudy.basicReactiveProgramming.completableFuture.future.FutureHelper;
 
 import java.util.concurrent.Future;
@@ -84,7 +84,7 @@ public class FutureGetExample {
         assert !future.isCancelled();
     }
 }
-```
+````
 - future에서 무한 루프나 오랜 시간이 걸린다면 thread가 blocking 상태를 유지하게 되는데,  
 이런 위험한 상태를 방지하게끔 해주는 메서드가 **get에 imteout을 인자로 받는 메서드**이다.  
 

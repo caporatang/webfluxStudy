@@ -32,7 +32,7 @@ public class CompletionStageThenAcceptRunningExample {
         CompletionStage<Integer> stage = Helper.runningStage();
 
         stage.thenAccept(i -> {
-            log.info("{} in thenAccept, i");
+            log.info("{} in thenAccept", i);
         }).thenAccept(i -> {
             log.info("{} in thenAccept2", i);
         });
