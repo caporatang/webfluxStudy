@@ -228,3 +228,113 @@ public class FutureCompleteExample {
 }
 ````
 비어있는 Flux를 생성하고 Subscriber에게 MAX_VALUE만큼 요청을 했지만, complete를 바로 호출했기 때문에 바로 종료된다
+
+
+## Project reactor - Mono
+- Mono는 Flux와 다르게 0..1 개의 item을 전달할수 있는 publisher이다.
+- 에러가 발생하면 error signal을 전달하고 종료하고, 모든 item을 전달했다면 complete signal을 전달하고 종료한다
+
+### Flux에서 하나의 값만 전달하고 complete 해서 사용하면 하나씩 보낼 수 있는건데 왜 Mono를 따로 사용하는걸까?
+````java
+@Slf4j
+public class MonoSimpleExample {
+    // Mono<T> : Optional<t>
+    // Flux<T> : List<T>
+    @SneakyThrows
+    public static void main(String[] args) {
+        log.info("start main");
+        getItems().subscribe(new SimpleSubscriber<>(Integer.MAX_VALUE));
+        log.info("end main");
+
+        Thread.sleep(1000);
+    }
+
+    private static Mono<Integer> getItems() {
+        return Mono.create(monoSink -> {
+            // success 를 호출해서 하나의 값만 전달하게 되면,
+            // 별도의 complete를 작성하지 않아도 자동으로 complete 된다.
+            monoSink.success(1);
+        });
+    }
+}
+````
+Mono는 1개의 item만 전달하기 떄문에 next 하나만 실행하면 자동으로 complete가 보장된다. 혹은 전달하지 않고 complete를 하면 값이 없다는 것을 의미한다. 즉, 하나의 값이 있다 없다를 나타낼수 있는 publisher로 사용할 수 있다.
+
+## Flux To Mono
+- Mono.from으로 첫 번째 값만 전달해서 Flux를 Mono로 바꿀 수 있다.
+````java
+@Slf4j
+public class FluxToMonoExample {
+    public static void main(String[] args) {
+        log.info("start main");
+        Mono.from(getItems()).subscribe(
+                new SimpleSubscriber<>(Integer.MAX_VALUE)
+        );
+        log.info("end main");
+    }
+
+    private static Flux<Integer> getItems() {
+        return Flux.fromIterable(List.of(1,2,3,4,5));
+    }
+}
+````
+Mono.from에 Flux publihser를 전달하면 1,2,3,4,5 가 전달 되어야 하는데, 1 까지만 전달 받고 자동으로 바로 complete 시켜버린다.
+
+## Flux To Mono - List
+- Flux의 값들을 따로따로가 아니라 하나의 값으로 변경하고 싶을땐 collectList를 사용한다. 
+- Flux의 값들을 collect하고 complete 이벤트가 발생하는 시점에 모은 값들을 전달한다.
+````java
+@Slf4j
+public class FluxToListMonoExample {
+    public static void main(String[] args) {
+        log.info("start main");
+        getItems()
+                .collectList() 
+                .subscribe(
+                        new SimpleSubscriber<>(Integer.MAX_VALUE)
+                );
+        log.info("end main");
+    }
+    private static Flux<Integer> getItems() {
+        return Flux.fromIterable(List.of(1,2,3,4,5));
+    }
+}
+````
+collectList는 subscriber이자 publisher의 역할을 할 수 있다. 내부적으로 onNext로 값들을 받아서 내부 배열에 저장하고 하나의 Mono로 반환한다.
+
+## Mono To Flux
+- Mono를 next 한 번 호출하고 onComplete를 호출하는 Flux로 변환
+````java
+@Slf4j
+public class MonoToFluxExample {
+    public static void main(String[] args) {
+        log.info("start main");
+        getItems().flux()
+                .subscribe(new SimpleSubscriber<>(Integer.MAX_VALUE));
+        log.info("end main");
+    }
+    private static Mono<List<Integer>> getItems() {
+        return Mono.just(List.of(1,2,3,4,5));
+    }
+}
+````
+Mono를 생성하고, 생성한 Mono에 flux()를 호출한다. 1,2,3,4,5 를 갖는 Mono는 flux()를 호출하게 되면 Mono가 갖고 있는 값들이 하나의 subset이 되어 Flux 형태로 사용할 수 있게 된다.
+
+## Mono To Flux - flatMapMany
+- flux() 처럼 하나의 subset, 배열이나 리스트 형태가 아니라 각각의 데이터들을 쪼개서 사용하고 싶은 경우에 사용한다.
+````java
+@Slf4j
+public class ListMonoToFluxExample {
+    public static void main(String[] args) {
+        log.info("start main");
+        getItems()
+                .flatMapMany(value -> Flux.fromIterable(value))
+                .subscribe(new SimpleSubscriber<>(Integer.MAX_VALUE));
+        log.info("end main");
+    }
+
+    private static reactor.core.publisher.Mono<List<Integer>> getItems() {
+        return Mono.just(List.of(1,2,3,4,5));
+    }
+}
+````
