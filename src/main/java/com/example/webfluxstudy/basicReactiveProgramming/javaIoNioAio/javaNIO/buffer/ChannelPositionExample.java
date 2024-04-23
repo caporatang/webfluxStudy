@@ -24,7 +24,7 @@ public class ChannelPositionExample {
 
     @SneakyThrows
     public static void main(String[] args) {
-        var file = new File("/Users/taeil/study/webfluxStudy/src/main/java/com/example/webfluxstudy/javaIoNioAio/javaNIO/buffer/test.txt");
+        var file = new File("/Users/taeil/study/webfluxStudy/src/main/java/com/example/webfluxstudy/basicReactiveProgramming/javaIoNioAio/javaNIO/buffer/test.txt");
 
         // fileChannel 을 열어서 파일에 있는 내용을 가져옴
         try (var fileChannel = FileChannel.open(file.toPath())){
