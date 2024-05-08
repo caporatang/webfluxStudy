@@ -162,3 +162,16 @@ public class Acceptor implements EventHandler {
     }
 }
 ````
+Reactor 클래스는 주로 I/O 이벤트를 감지하고 처리하기 위한 컴포넌트다.  
+Reactor는 별도의 스레드에서 실행되며, Selector를 사용하여 네트워크 이벤트를 감지한다. Selector가 이벤트를 발견하면 해당 이벤트를 처리하기 위해 적절한 EventHandler에게 dispatch한다.
+
+Acceptor는 새로운 클라이언트 연결을 받아들이는 역할을 한다.   
+이벤트를 처리하기 위해 Reactor에 의해 호출되며, 새로운 클라이언트가 연결되면 Acceptor는 새로운 TcpEventHandler를 생성하여 해당 클라이언트의 요청을 처리한다.
+
+TcpEventHandler는 각 클라이언트의 요청을 처리하는 역할을 한다. 이 클래스는 클라이언트 소켓과 연결되어 있으며, 클라이언트의 요청을 수신하고 처리한 후에 응답을 보낸다. 비동기적인 방식으로 응답을 처리하기 위해 CompletableFuture를 사용하여 백그라운드에서 작업을 수행한다.  
+
+정리하자면, Reactor는 이벤트를 감지하고 처리하며, Acceptor는 연결을 받아들이고 TcpEventHandler는 요청을 처리하고 응답을 보낸다.  
+이러한 패턴, 방식이 Spring-webflux에서 기본 내장되어 있는 netty의 기본적인 원리이다.
+
+꼭 reactive 진영에서 사용되는 netty가 아니여도 Netty 라이브러리를 사용해서 TCP 기반 통신, 포트를 바인딩하고, event handler를 구현해서 이벤트가 발생하면 요청을 처리하는것은 동일하다.  
+실무에서 썼던 Netty는 굉장히 편했는데, 이런 동작 과정을 따로 구현해서 해보니 굉장히 어렵고 더 깊은 이해가 필요하다..
