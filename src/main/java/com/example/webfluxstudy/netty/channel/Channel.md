@@ -54,4 +54,33 @@ inbound I/O 이벤트는 ChannelPipeline으로 들어오는 것이기 때문에 
 
 
 ChannelHandlerContext의 내부에는 EventExecutor와 ChannelHandler를 포함하고 있고, ChanneelHandler는 I/O 이벤트를 받아서 다음 context에게 넘겨줄 수도 있고, 다음 context에게 넘겨주지 않고 I/O 작업을 수행할 수도 있다.
-![ChannelHandlerContext_내부](img/ChannelHandlerContext_내부.png)      
+![ChannelHandlerContext_내부](img/ChannelHandlerContext_내부.png)  
+
+
+## ChannelHandlerContext 에서 별도의 EventExecutor를 지원하는 이유
+특정 ChannelHandler에서 시간이 오래 걸리는 작업을 처리한다면 EventLoop 스레드에서 해당 ChannelHandler에서 blocking이 걸리고, EventLoop에 등록된 다른 Channel의 I/O 처리 또한 blocking된다.  
+
+ChannelHandler는 EventLoop 스레드가 실행한다. 이는 특정 ChannelHandler에서 blocking이 발생한다면 이는 EventLoop 스레드가 blocking 된다는 의미가 된다.  
+EventLoop는 ChannelHandler의 실행뿐 아니라 I/O task 즉, channel의 이벤트 감지 및 감시 또한 실행해야 한다.  
+blocking이 발생한다면 EventLoop에 요청이 계속 들어와서 EventLoop에 쌓이게 되는데 channelHandler는 EventLoop 스레드를 붙잡고 있고 쌓인 channel에 대한 작업은 실행되지 못하는 경우가 발생한다.  
+
+이런 상황, 시간이 오래 걸리는 작업을 수행을 해야 되는 경우에 EventExecutor가 사용된다.  
+ChannelHandlerContext에 등록된 EventExecutor가 있다면, next context가 다른 스레드풀에서 동작해야하는구나 라고 판단하여 직접 이벤트 처리를 호출하지 않고  
+executor.execute로 taskQueue에 넣고 EventLoop 스레드는 복귀한다.  
+
+![EventExecutor](img/EventExecutor.png)        
+
+특정 context에서 next context로 이벤트를 전파하는 상황에서 스레드가 다르다면 next executor의 task queue에 이벤트 처리를 추가하고, 스레드가 같다면 해당 스레드가 직접 이벤트 처리를 실행한다.
+
+
+
+
+
+
+
+
+
+
+
+
+
