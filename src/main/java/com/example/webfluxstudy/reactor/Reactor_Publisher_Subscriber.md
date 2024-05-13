@@ -6,7 +6,7 @@ Spring webflux에서 메인으로 사용되며, backpressure를 제공하여 안
 한 지점에서 결함이 발생하거나 처리가 불가능해진다면 업스트림에 신호를 보내서 흐름 제한도 가능하다.  
 
 ## Reactor Publisher
-Reactor에서 Mono와 Flux를 제공한다. CorePublisher는 reactive streams의 Publisher를 구현하며, reactive streams와 호환된다.
+Reactor에서 Mono와 Flux를 제공한다. CorePublisher는 reactive streams의 Publisher를 구현하며, reactive streams와 호환된다.  
 ![Reactor](img/Reactor.png)  
 
 ### Flux
@@ -131,5 +131,212 @@ public class SecondExample {
 3. completeConsumer : 받을 인자가 없기 때문에 Runnable을 구현한다.
 4. initialContext : upstream에 전달할 context.
 
+````java
+import lombok.extern.slf4j.Slf4j;
+import reactor.core.publisher.Flux;
+import reactor.util.context.Context;
 
+import java.util.List;
 
+@Slf4j
+public class SecondExampleLambda {
+    public static void main(String[] args) {
+        Flux.fromIterable(List.of(1, 2, 3, 4, 5))
+                .subscribe(value -> {
+                    log.info("value : " + value)
+                }, error -> {
+                    log.error("error: " + error);
+                }, () -> {
+                    log.info("complete");
+                }, Context.empty());
+    }
+}
+````
+함수형 인터페이스로 구현되기 때문에 람다식으로도 변경하여 처리가 가능하다.  
+subscription을 받을 수 없기 때문에 backpressure를 이용할 수 없고,  
+마지막 인자로 Consumer<? super Subscription> subscriptionConsumer를 받는 형태도 있지만 deprecated 되었다.
+
+````java
+import lombok.extern.slf4j.Slf4j;
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
+import reactor.core.publisher.Flux;
+
+import java.util.List;
+
+@Slf4j
+public class ThirdExample {
+    public static void main(String[] args) {
+        Flux.fromIterable(List.of(1, 2, 3, 4, 5))
+                .subscribe(new Subscriber<Integer>() {
+                    @Override
+                    public void onSubscribe(Subscription subscription) {
+                        subscription.request(Long.MAX_VALUE);   
+                    }
+                    @Override
+                    public void onNext(Integer integer) {
+                        log.info("value : " + integer);
+                    }
+                    @Override
+                    public void onError(Throwable throwable) {
+                        log.error("error : " + throwable);
+                    }
+                    @Override
+                    public void onComplete() {
+                        log.info("compelte");
+                    }
+                });
+    }
+}
+````
+Subscriber를 직접 구현해서 사용하는 경우가 있다. Subscriber 구현체를 subscribe에 전달하고, onSubscribe를 통해서 subscription을 받고 즉시 Long.Max_VALUE개만큼 request한다.
+Publisher에서 제공할 수 있는 데이터를 최대한 요청하는 것을 **unbounded request** 라고 한다.  
+
+## BaseSubscriber
+Reactor는 BaseSubscriber를 따로 제공한다. 
+subscriber를 직접 구현하는 대신, hookOnNext, hookOnComplete, hookOnError, hookOnSubscribe를 구현해준다.  
+BaseSubscriber의 장점은 BaseSubscriber를 선언해서 제공되는 hook 메서드들을 구현하면 외부에서 request와 cancel을 자동으로 호출할 수 있게 해주며,  
+기본적으로 unbounded request가 적용된다.
+
+````java
+import lombok.extern.slf4j.Slf4j;
+import reactor.core.publisher.BaseSubscriber;
+
+@Slf4j
+public class BaseSubscriberExample {
+    public static void main(String[] args) {
+        var subscriber = new BaseSubscriber<Integer>() {
+            @Override
+            protected void hookOnNext(Integer value) {
+                log.info("value : " + value);
+            }
+
+            @Override
+            protected void hookOnComplete() {
+                log.info("complete");
+            }
+        };
+        // subscriber.reqeust(1);
+        // subscriber.cancel();
+    }
+}
+````
+
+## backPressure
+unbounded request는 Publisher에게 가능한 빠르게 아이템을 전달해달라는 요청이다. request(Long.MAX_VALUE)로 실행되며, 조절하는게 아니라 가능한 빨리 전부 다 줘 라는게 unbounded request이기 때문에 back Pressure는 비활성화된다고 생각해야한다.  
+  
+
+unbounded reqeust가 일어나는 경우는  
+1. 아무것도 넘기지 않는 그리고, lambda 기반의 subscribe()
+2. BaseSubscriber의 hookOnSubscribe를 그대로 사용
+3. block(), blockFirst(), blockLast() 등의 blocking 연산자.
+4. toIterable(), toStream() 등의 toCollect 연산자.
+
+````java
+import lombok.extern.slf4j.Slf4j;
+import org.reactivestreams.Subscription;
+import reactor.core.publisher.BaseSubscriber;
+import reactor.core.publisher.Flux;
+
+import java.util.List;
+
+@Slf4j
+public class BackpressureExample {
+    public static void main(String[] args) {
+        var subscriber = new BaseSubscriber<Integer>() {
+            @Override
+            protected void hookOnSubscribe(Subscription subscription) {
+                request(1);
+            }
+
+            @Override
+            protected void hookOnNext(Integer value) {
+                log.info("value : " + value);
+                cancel();
+            }
+
+            @Override
+            protected void hookOnComplete() {
+                log.info("complete");
+            }
+        };
+        Flux.fromIterable(List.of(1,2,3,4,5))
+                .subscribe(subscriber);
+    }
+}
+````
+hookOnSubscribe 메서드를 이용해서 1개만 request하고, onNext가 이벤트가 발생하면 cancel을 실행한다.
+onNext를 한번 실행하고 cancel을 호출했으므로, 1,2,3,4,5 list를 가지고 있는 Publisher를 subscribe해도 결과는 value : 1 만 출력되고 끝나게 된다. 
+
+## buffer
+동작방식을 다르게 구현할 수 있는 연산자들도 제공한다.  
+buffer(N)를 호출하면 N개만큼 모아서 List로 전달할 수 있다. buffer(3) 을 호출 후 reqeust(2)를 하는 경우, 3개가 담긴 List 2개가 Subscriber에게 전달할 수 있다.
+List 2개, 6개의 item을 전달 받을 수 있다.
+````java
+@Slf4j
+public class SubscribeBufferExample {
+    public static void main(String[] args) {
+        log.info("start main");
+
+        var subscriber = new BaseSubscriber<List<Integer>>() {
+            private Integer count = 0;
+            @Override
+            protected void hookOnSubscribe(Subscription subscription) {
+                request(2);
+            }
+            @Override
+            protected void hookOnNext(List<Integer> value) {
+                log.info("value: " + value);
+                if (++count == 2) cancel();
+            }
+            @Override
+            protected void hookOnComplete() {
+                log.info("complete");
+            }
+        };
+
+        // onNext를 사용해서 하나씩 받는것이 아니라 buffer를 사용해서 모아서 받을 수 있음
+        // buffer(n) : n * request count
+        Flux.fromStream(IntStream.range(0, 10).boxed())
+                .buffer(3)
+                .subscribe(subscriber);
+
+        log.info("end main");
+    }
+}
+````
+![Buffer](img/buffer.png)    
+실행 결과를 보면 List 2개, 총 6개의 아이템이 전달됐다.
+  
+
+  
+## take(n, limitRequest)
+Publisher에 아이템이 수만개의 아이템이 있을때 개수를 제한해서 받고 싶은 경우라면 take를 사용한다.  
+limitReqeust가 true인 경우, 정확히 n개만큼 요청 후 compelte 이벤트를 전달하고 BaseSubscriber의 기본 전략이 unbounded reqeust이지만 take(5, ture)를 설정하면 5개 전달 후 complete 이벤트가 호출된다.
+````java
+@Slf4j
+public class SubscribeLimitRequestExample {
+    public static void main(String[] args) {
+        log.info("start main");
+
+        var subscriber = new BaseSubscriber<Integer>() {
+            @Override
+            protected void hookOnNext(Integer value) {
+                log.info("value: " + value);
+            }
+
+            @Override
+            protected void hookOnComplete() {
+                log.info("complete");
+            }
+        };
+
+        Flux.fromStream(IntStream.range(0, 10).boxed())
+                .take(5)
+                .subscribe(subscriber);
+
+        log.info("end main");
+    }
+}
+````
+![Take](img/take.png)      
