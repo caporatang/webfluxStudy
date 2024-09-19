@@ -1,0 +1,3 @@
+- websocket으로 구현되어 있던 채팅 기능을 고도화하는 프로젝트
+  - 채팅을 document 형태로 저장하고
+  - document가 추가되면 change stream을 이용해서 해당 채팅을 상대방에게 전달

@@ -1,0 +1,13 @@
+db.getSiblingDB("capo1").getCollection("chat").findOneAndDelete("66ec38fd0ed33354158a8c8f");;
+db.getSiblingDB("capo1").getCollection("chat").findOneAndDelete(66ec38fd0ed33354158a8c8f);;
+db.getSiblingDB("capo1").getCollection("chat").deleteMany();;
+db.getSiblingDB("capo1").getCollection("chat").remove();;
+db.getSiblingDB("capo1").getCollection("chat").delete();;
+db.getSiblingDB("capo1").getCollection("chat").deleteOne(66ec38fd0ed33354158a8c8f);
+db.getSiblingDB("capo1").getCollection("chat").deleteOne("66ec38fd0ed33354158a8c8f");
+db.createCollection('chat');
+db.deleteCollection('chatr');
+db.createCollection('chatr');
+use capo1
+db.createCollection('chat');
+rs.initiate({ _id: "myReplicaSet", members: [ { _id: 0, host: "mongo1:27017" }, { _id: 1, host: "mongo2:27018" }] });
